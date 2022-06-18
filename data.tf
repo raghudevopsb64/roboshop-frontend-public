@@ -10,7 +10,7 @@ data "aws_vpc" "default" {
 }
 
 data "dns_a_record_set" "frontend" {
-  host = "fronend-${var.ENV}.roboshop.internal"
+  host = "frontend-${var.ENV}.roboshop.internal"
 }
 
 output "dns" {
