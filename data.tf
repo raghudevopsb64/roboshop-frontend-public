@@ -9,4 +9,10 @@ data "aws_vpc" "default" {
   id = var.DEFAULT_VPC_ID
 }
 
+data "dns_a_record_set" "frontend" {
+  host = "fronend-${var.ENV}.roboshop.internal"
+}
 
+output "dns" {
+  value = data.dns_a_record_set.frontend
+}

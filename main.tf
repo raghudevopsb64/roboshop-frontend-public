@@ -10,6 +10,22 @@ resource "aws_lb" "public" {
   }
 }
 
+resource "aws_lb_target_group" "frontend-alb-ips" {
+  name        = "frontend-alb-ips-${var.ENV}"
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "ip"
+  vpc_id      = var.DEFAULT_VPC_ID
+}
+
+//resource "aws_lb_target_group_attachment" "test" {
+//  target_group_arn = aws_lb_target_group.frontend-alb-ips.arn
+//  target_id        =
+//  port             = 80
+//}
+
+
+
 resource "aws_security_group" "alb" {
   name        = "allow_alb_public_${var.ENV}"
   description = "allow_alb_public_${var.ENV}"
