@@ -26,7 +26,15 @@ resource "aws_lb_target_group_attachment" "add-ip" {
   port              = 80
 }
 
-
+resource "aws_lb_listener" "frontend" {
+  load_balancer_arn = aws_lb.public.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.frontend-alb-ips.arn
+  }
+}
 
 resource "aws_security_group" "alb" {
   name        = "allow_alb_public_${var.ENV}"
