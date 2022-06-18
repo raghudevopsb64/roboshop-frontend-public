@@ -19,10 +19,11 @@ resource "aws_lb_target_group" "frontend-alb-ips" {
 }
 
 resource "aws_lb_target_group_attachment" "add-ip" {
-  count            = length(data.dns_a_record_set.frontend.addrs)
-  target_group_arn = aws_lb_target_group.frontend-alb-ips.arn
-  target_id        = element(data.dns_a_record_set.frontend.addrs, count.index)
-  port             = 80
+  count             = length(data.dns_a_record_set.frontend.addrs)
+  target_group_arn  = aws_lb_target_group.frontend-alb-ips.arn
+  target_id         = element(data.dns_a_record_set.frontend.addrs, count.index)
+  availability_zone = "all"
+  port              = 80
 }
 
 
