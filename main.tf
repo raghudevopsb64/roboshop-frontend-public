@@ -16,6 +16,15 @@ resource "aws_lb_target_group" "frontend-alb-ips" {
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = var.DEFAULT_VPC_ID
+  health_check {
+    enabled             = true
+    healthy_threshold   = 3
+    unhealthy_threshold = 2
+    interval            = 5
+    timeout             = 4
+    path                = "/health"
+    port                = 80
+  }
 }
 
 resource "aws_lb_target_group_attachment" "add-ip" {
