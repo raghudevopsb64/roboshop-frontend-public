@@ -78,3 +78,13 @@ resource "aws_security_group" "alb" {
     Name = "allow_alb_public_${var.ENV}"
   }
 }
+
+resource "aws_route53_record" "public-alb" {
+  zone_id = "Z03439621SCOB6CXGIDUM"
+  name    = "roboshop.devopsb64.online"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [aws_lb.public.dns_name]
+}
+
+
